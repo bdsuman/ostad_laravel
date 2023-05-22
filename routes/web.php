@@ -30,9 +30,17 @@ Route::post('/response',[UserController::class,'response'])->name('user.response
 Route::post('/upload',[UserController::class,'upload'])->name('user.upload');
 
 Route::post('/submit', function (Request $request) {
-   return $email = $request->input('email');
-    return response()->json([
-        'success' => true,
-        'message' => 'Form submitted successfully.'
-    ]);
+   $email = $request->input('email');
+   if(!empty($email)){
+
+       return response()->json([
+           'success' => true,
+           'message' => 'Form submitted successfully.'
+       ]);
+   }else{
+        return response()->json([
+            'success' => false,
+            'message' => 'Email is Required.'
+        ]);
+   }
 });

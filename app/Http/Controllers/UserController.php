@@ -9,8 +9,8 @@ class UserController extends Controller
     public function create(Request $request){
         $name = request()->input('name');
         $userAgent = request()->header('User-Agent');
-         return $name;
-        //  return response()->json(request()->all());
+        return $name;
+       
     }
     
     public function page(Request $request){
