@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,18 @@ Route::get('/', function () {
 
 Route::get('/hello',function(){
     return 'Hello World!';
+});
+
+Route::post('/user/create',[UserController::class,'create'])->name('user.create');
+
+Route::post('/response',[UserController::class,'response'])->name('user.response');
+
+Route::post('/upload',[UserController::class,'upload'])->name('user.upload');
+
+Route::post('/submit', function (Request $request) {
+   return $email = $request->input('email');
+    return response()->json([
+        'success' => true,
+        'message' => 'Form submitted successfully.'
+    ]);
 });
