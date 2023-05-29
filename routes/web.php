@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRegistration;
 use App\Http\Controllers\ContactController;
@@ -82,4 +83,4 @@ Route::resource('/product',ProductController::class);
 Route::post('/contact',ContactController::class);
 
 //Task 7: Resource Controller
-Route::resource('/product',ProductController::class);
+Route::resource('/post',PostController::class);
