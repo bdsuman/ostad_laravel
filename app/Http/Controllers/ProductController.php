@@ -13,12 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return response()->json([
-            'data'    => $products,
-            'success' => true,
-            'status'  => 200
-        ]);
+        $data['products'] = Product::paginate(5);
+        
+        return view('product.index',$data);
 
     }
 
@@ -27,7 +24,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -42,22 +39,15 @@ class ProductController extends Controller
         ]);
  
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->errors()
-            ]);
+            return redirect()->back()->withErrors($validator)->withInput(); 
         }
-        // $product = Product::create($request->all());
+      
         $product = new Product;
         $product->name = $request->name;
         $product->price = $request->price;
 
         $product->save();
-        return response()->json([
-            'msg'    => 'Product created successfully.',
-            'success' => true,
-            'status'  => 200
-        ]);
+        return back()->withSuccess('Product created successfully.');
     }
 
     /**
@@ -71,9 +61,15 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $data['product'] = Product::find($id);
+
+        if(is_null($data['product']) || empty($data['product'])){
+            return redirect()->back()->withErrors(['Product Not Found.'])->withInput(); 
+            }
+
+        return view('product.edit',$data);
     }
 
     /**
@@ -82,34 +78,24 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
+
         if(is_null($product)){
-            return response()->json([
-                'msg'    => 'Product Not Found.',
-                'success' => true,
-                'status'  => 404
-            ]);
-         }
+            return redirect()->back()->withErrors(['Product Not Found.'])->withInput(); 
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:2',
             'price' => 'required|regex:/^[0-9]+(\.[0-9][0-9][0-9]?)?$/'
         ]);
  
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->errors()
-            ]);
+            return redirect()->back()->withErrors($validator)->withInput(); 
         }
-        $product = Product::findOrFail($id);
-        // $product->update($request->all());
+
         $product->name = $request->name;
         $product->price = $request->price;
         $product->update();
-        return response()->json([
-            'msg'    => 'Product Updated Successfully.',
-            'success' => true,
-            'status'  => 200
-        ]);
+        return back()->withSuccess('Product Updated Successfully.');
     }
 
     /**
@@ -118,18 +104,14 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+
         if(is_null($product)){
-            return response()->json([
-                'msg'    => 'Product Not Found.',
-                'success' => true,
-                'status'  => 404
-            ]);
-         }
+            return redirect()->back()->withErrors(['Product Not Found.'])->withInput(); 
+        }
+
         $product->delete();
-        return response()->json([
-            'msg'    => 'Product Deleted Successfully.',
-            'success' => true,
-            'status'  => 200
-        ]);
+        
+        return back()->withSuccess('Product Deleted Successfully.');
+        
     }
 }

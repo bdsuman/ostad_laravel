@@ -1,17 +1,8 @@
 @extends('app')
-@section('title','Welcome to Ostad')
+@section('title','Post Add')
 @push('style')
 <style>
-    .hero {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f8fafc;
-        color: #636b6f;
-        font-size: 2em;
-        text-align: center;
-    }
+   
 </style>
 @endpush
 @section('content')

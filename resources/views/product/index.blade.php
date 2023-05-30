@@ -1,17 +1,15 @@
 @extends('app')
-@section('title','Post Table')
+@section('title','Product Table')
 @push('style')
-<style>
-</style>
 @endpush
 @section('content')
 <div class="container mt-5">
     <div style="text-align: left;">
-        <h1>All Post Table</h1>
+        <h1>All Product Table</h1>
     </div>
 
     <div style="text-align: right;">
-        <a href="{{ route('post.create') }}" class="btn btn-success">Add Post</a>
+        <a href="{{ route('product.create') }}" class="btn btn-success">Add Product</a>
     </div>
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
@@ -24,22 +22,22 @@
     <table class="table table-bordered table-striped">
         <thead>
             <th>Serial</th>
-            <th>Title</th>
-            <th>Description</th>
+            <th>Name</th>
+            <th>Price</th>
             <th>Option</th>
         </thead>
         <tbody>
-            @forelse ($posts as $key=>$post)
+            @forelse ($products as $key=>$value)
                 
            
             <tr>
                 <td>{{ ++$key }}</td>
-                <td>{{ $post->title }}</td>
-                <td>{{ $post->description }}</td>
+                <td>{{ $value->name }}</td>
+                <td>{{ number_format($value->price,2)}}</td>
                 <td style="display: flex;">
-                    <a href="{{ route('post.edit',$post->id) }}" class="btn btn-warning">Edit</a>
+                    <a href="{{ route('product.edit',$value->id) }}" class="btn btn-warning">Edit</a>
                     &nbsp; &nbsp;
-                    <form action="{{  route('post.destroy',$post->id) }}" method="POST" >
+                    <form action="{{  route('product.destroy',$value->id) }}" method="POST" >
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this');">Delete</button>
@@ -55,9 +53,7 @@
             @endforelse
         </tbody>
     </table>
-
-    {{ $posts->links() }}
-
+    {{ $products->links() }}
 </div>
 @endsection
 

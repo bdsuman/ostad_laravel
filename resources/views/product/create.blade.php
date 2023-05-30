@@ -1,12 +1,12 @@
 @extends('app')
-@section('title','Post Edit')
+@section('title','Product Add')
 @push('style')
 @endpush
 @section('content')
 <div class="container">
     <div class="card mt-5">
         <div class="card-header">
-            Post Create
+            Product Create
         </div>
         <div class="card-body">
             <div class="row">
@@ -28,31 +28,28 @@
                     </div>
                         
                     @endif
-                   
-                    <form action="{{ route('post.update',$post->id) }}" method="POST" >
+                    <form action="{{ route('product.store') }}" method="POST" >
                         @csrf
-                        @method('PUT')
                         <div class="mb-3">
-                            <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="title" id="title" value="{{ $post->title }}" placeholder="Write title here.">
+                            <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" placeholder="Write name here.">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Description <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="description" name="description" placeholder="Write description here.">{{ $post->description }}</textarea>
+                            <label for="price" class="form-label">Price <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}" placeholder="Write price here.">
                         </div>
+                        
                         <div class="text-center">
-                            <button type="submit" name="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
-                                            
-                    
                 </div>
 @endsection
 
 @push('script')
-<script type="text/javascript">
-    // window.addEventListener("load", (event) => {
-    //     alert("page is fully loaded");
-    // });
-</script>
+    <script type="text/javascript">
+        // window.addEventListener("load", (event) => {
+        //     alert("page is fully loaded");
+        // });
+    </script>
 @endpush

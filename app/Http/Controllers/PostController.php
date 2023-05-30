@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data['posts'] = Post::all();
+        $data['posts'] = Post::paginate(5);
 
         return view('post.index',$data);
     }
@@ -64,7 +64,7 @@ class PostController extends Controller
     {
             $data['post'] = Post::find($id);
             if(is_null($data['post']) || empty($data['post'])){
-                return redirect()->back()->withErrors(['Product Not Found.'])->withInput(); 
+                return redirect()->back()->withErrors(['Post Not Found.'])->withInput(); 
              }
 
         return view('post.edit',$data);
@@ -105,7 +105,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         if(is_null($post)){
-            return redirect()->back()->withErrors(['Product Not Found.'])->withInput(); 
+            return redirect()->back()->withErrors(['Post Not Found.'])->withInput(); 
          }
         $post->delete();
         return back()->withSuccess('Post Successfully Deleted !!');
