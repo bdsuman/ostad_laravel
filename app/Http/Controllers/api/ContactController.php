@@ -20,7 +20,10 @@ class ContactController extends Controller
         ]);
  
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput(); 
+            return response()->json([
+                'success' => false,
+                'client_message' => $validator->errors()
+            ]);
         }
 
        // Send email
@@ -31,12 +34,17 @@ class ContactController extends Controller
            'email' => $request->email,
            'client_message' => $request->client_message,
        ];
+
        Mail::send('contact.email', $data, function ($message) use ($to, $subject) {
            $message->to($to)
                ->subject($subject);
        });
 
-       return back()->withSuccess('Thank You. Our Representive contact as soon as possible.');
-      
+       return response()->json([
+        'success' => true,
+        'message' => 'Thank You. Our Representive contact as soon as possible.'
+        ]);
+
     }
 }
+

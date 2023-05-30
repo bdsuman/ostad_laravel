@@ -80,6 +80,9 @@ Route::middleware(['auth_middleware'])->group(function () {
 Route::resource('/product',ProductController::class);
 
 //Task 6: Controller
+Route::get('/contact',function(){
+    return view('contact.index');
+});
 Route::post('/contact',ContactController::class);
 
 //Task 7: Resource Controller

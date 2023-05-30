@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<html>
+<head></head>
 <body>
-    Email Body:
-    @php
-        print_r($data);
-    @endphp
+    <h1>Hello, {{ $name }}!</h1>
+    
+    <p>Thank you for your interest in our website. Here are the details you provided:</p>
+    
+    <ul>
+        <li>Name: {{ $name }}</li>
+        <li>Email: {{ $email }}</li>
+        <li>Message: {{ $client_message }}</li>
+    </ul>
+    
+    <p>If you have any questions or need further assistance, feel free to reach out to us.</p>
+    
+    <p>Best regards,</p>
+    <p>Your Company</p>
 </body>
 </html>
